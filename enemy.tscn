@@ -1,0 +1,104 @@
+[gd_scene load_steps=8 format=3 uid="uid://baxj32hlwhqse"]
+
+[ext_resource type="Script" path="res://Enemy.gd" id="1_gh6i6"]
+[ext_resource type="Texture2D" uid="uid://buhxm4dhr50ky" path="res://images/Rat.png" id="2_envmf"]
+[ext_resource type="PackedScene" uid="uid://cfsd54tkfdfh" path="res://hover_info.tscn" id="3_ep7xn"]
+
+[sub_resource type="Animation" id="Animation_xp2tp"]
+resource_name = "Attack"
+length = 0.8
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4, 0.8),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(0, -3.1746), Vector2(1, 7.93651), Vector2(0, 0)]
+}
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.3),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"deal_damage"
+}]
+}
+
+[sub_resource type="Animation" id="Animation_qj207"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_i3tbd"]
+resource_name = "Shake"
+length = 0.2
+step = 0.05
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.05, 0.1, 0.15, 0.2),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(-4, 3.1746), Vector2(6, -2.38095), Vector2(-3, -1.5873), Vector2(0, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_kkppb"]
+_data = {
+"Attack": SubResource("Animation_xp2tp"),
+"RESET": SubResource("Animation_qj207"),
+"Shake": SubResource("Animation_i3tbd")
+}
+
+[node name="Enemy" type="Node2D"]
+scale = Vector2(1, 1.26)
+script = ExtResource("1_gh6i6")
+
+[node name="Sprite" type="Sprite2D" parent="."]
+scale = Vector2(1, 0.837838)
+texture = ExtResource("2_envmf")
+
+[node name="HPLabel" type="Label" parent="."]
+offset_left = -2.0
+offset_top = -18.254
+offset_right = 8.0
+offset_bottom = -13.254
+text = "25hp"
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_kkppb")
+}
+
+[node name="HoverInfo" parent="." instance=ExtResource("3_ep7xn")]
+offset_left = -24.0
+offset_top = -12.0
+offset_right = 20.0
+offset_bottom = 31.0
+scale = Vector2(1.14041, 0.558028)
+description = "A giant rat!"
+
+[connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_player_animation_finished"]

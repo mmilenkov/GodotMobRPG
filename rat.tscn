@@ -1,0 +1,10 @@
+[gd_scene load_steps=2 format=3 uid="uid://b41yvfd80kx71"]
+
+[ext_resource type="PackedScene" uid="uid://baxj32hlwhqse" path="res://enemy.tscn" id="1_injvo"]
+
+[node name="Rat" instance=ExtResource("1_injvo")]
+
+[node name="HoverInfo" parent="." index="3"]
+offset_right = 19.0
+mouse_filter = 1
+description = "A huge rat!"

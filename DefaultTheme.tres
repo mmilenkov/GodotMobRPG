@@ -1,0 +1,32 @@
+[gd_resource type="Theme" load_steps=7 format=3 uid="uid://d3a4v625oe6t"]
+
+[ext_resource type="StyleBox" uid="uid://duljfm83b22ys" path="res://Button9Slice.tres" id="1_cwheh"]
+[ext_resource type="FontVariation" uid="uid://gh2yfhb5obcm" path="res://DefaultFont.tres" id="1_fjyoq"]
+[ext_resource type="StyleBox" uid="uid://dnfa1qx4nam5h" path="res://Button9SliceHover.tres" id="2_btta0"]
+[ext_resource type="StyleBox" uid="uid://collj3d8gudi7" path="res://Button9SlicePressed.tres" id="3_fyylh"]
+[ext_resource type="StyleBox" uid="uid://cpbcyqwuhxrf3" path="res://Panel9Frame.tres" id="4_oeamv"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_h1apu"]
+
+[resource]
+default_font = ExtResource("1_fjyoq")
+default_font_size = 6
+Button/colors/font_pressed_color = Color(0, 0, 0, 1)
+Button/font_sizes/font_size = 6
+Button/styles/disabled = ExtResource("1_cwheh")
+Button/styles/focus = SubResource("StyleBoxEmpty_h1apu")
+Button/styles/hover = ExtResource("2_btta0")
+Button/styles/normal = ExtResource("1_cwheh")
+Button/styles/pressed = ExtResource("3_fyylh")
+LineEdit/styles/focus = ExtResource("4_oeamv")
+LineEdit/styles/normal = ExtResource("4_oeamv")
+LineEdit/styles/read_only = ExtResource("4_oeamv")
+OptionButton/styles/disabled = ExtResource("4_oeamv")
+OptionButton/styles/focus = ExtResource("4_oeamv")
+OptionButton/styles/hover = ExtResource("4_oeamv")
+OptionButton/styles/normal = ExtResource("4_oeamv")
+OptionButton/styles/pressed = ExtResource("4_oeamv")
+Panel/styles/panel = ExtResource("4_oeamv")
+TextEdit/styles/focus = ExtResource("4_oeamv")
+TextEdit/styles/normal = ExtResource("4_oeamv")
+TextEdit/styles/read_only = ExtResource("4_oeamv")

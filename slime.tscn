@@ -1,0 +1,21 @@
+[gd_scene load_steps=3 format=3 uid="uid://cbo586p1uxuuj"]
+
+[ext_resource type="PackedScene" uid="uid://baxj32hlwhqse" path="res://enemy.tscn" id="1_atu4p"]
+[ext_resource type="Texture2D" uid="uid://b4xhg2a07wok8" path="res://images/Slime.png" id="2_52dtu"]
+
+[node name="Slime" instance=ExtResource("1_atu4p")]
+hp = 35
+damage = 3
+
+[node name="Sprite" parent="." index="0"]
+texture = ExtResource("2_52dtu")
+
+[node name="HPLabel" parent="." index="1"]
+text = "35hp"
+
+[node name="HoverInfo" parent="." index="3"]
+offset_top = -9.0
+offset_right = 16.0
+offset_bottom = 24.0
+mouse_filter = 1
+description = "A green slime!"

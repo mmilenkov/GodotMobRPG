@@ -1,0 +1,186 @@
+[gd_scene load_steps=12 format=3 uid="uid://b5r6epxepty0m"]
+
+[ext_resource type="Texture2D" uid="uid://cq3ctxwr8ofmb" path="res://images/Dungeon.png" id="1_h1whg"]
+[ext_resource type="Script" path="res://Battle.gd" id="1_p3bhr"]
+[ext_resource type="Script" path="res://PlayerStats.gd" id="2_3x2q8"]
+[ext_resource type="PackedScene" uid="uid://b41yvfd80kx71" path="res://rat.tscn" id="2_5vv70"]
+[ext_resource type="Script" path="res://StatsPanel.gd" id="6_1enfp"]
+[ext_resource type="PackedScene" uid="uid://cbo586p1uxuuj" path="res://slime.tscn" id="6_dryp4"]
+[ext_resource type="PackedScene" uid="uid://b1vbg4qsnfru4" path="res://sword_action_button.tscn" id="7_tkgxd"]
+[ext_resource type="PackedScene" uid="uid://c7323yqlupi36" path="res://heal_action_button.tscn" id="8_5i1rn"]
+
+[sub_resource type="Animation" id="Animation_x2ew5"]
+resource_name = "RoomFade"
+length = 0.5
+step = 0.05
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Fade:color")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.35, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Color(0, 0, 0, 0), Color(0, 0, 0, 1), Color(0, 0, 0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_dwtl8"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Fade:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(0, 0, 0, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_0pi2f"]
+_data = {
+"RESET": SubResource("Animation_dwtl8"),
+"RoomFade": SubResource("Animation_x2ew5")
+}
+
+[node name="Battle" type="Node"]
+script = ExtResource("1_p3bhr")
+enemies = Array[PackedScene]([ExtResource("2_5vv70"), ExtResource("6_dryp4")])
+
+[node name="PlayerStats" type="Node" parent="."]
+script = ExtResource("2_3x2q8")
+
+[node name="Dungeon" type="Sprite2D" parent="."]
+position = Vector2(45, 80)
+texture = ExtResource("1_h1whg")
+
+[node name="EnemyPos" type="Node2D" parent="."]
+position = Vector2(45, 30)
+
+[node name="UI" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="CenterContainer" type="CenterContainer" parent="UI"]
+layout_mode = 0
+offset_right = 90.0
+offset_bottom = 48.0
+mouse_filter = 2
+
+[node name="ForwardButton" type="Button" parent="UI/CenterContainer"]
+visible = false
+custom_minimum_size = Vector2(70, 26)
+layout_mode = 2
+text = "Move Forward,
+
+if you dare!"
+
+[node name="StatsPanel" type="Panel" parent="UI"]
+layout_mode = 0
+offset_left = 3.0
+offset_top = 48.0
+offset_right = 87.0
+offset_bottom = 71.0
+mouse_filter = 2
+script = ExtResource("6_1enfp")
+
+[node name="StatsContainer" type="HBoxContainer" parent="UI/StatsPanel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="HPLabel" type="Label" parent="UI/StatsPanel/StatsContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+mouse_filter = 0
+text = "HP
+25"
+horizontal_alignment = 1
+
+[node name="APLabel" type="Label" parent="UI/StatsPanel/StatsContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+mouse_filter = 0
+text = "AP
+3"
+horizontal_alignment = 1
+
+[node name="MPLabel" type="Label" parent="UI/StatsPanel/StatsContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+mouse_filter = 0
+text = "MP
+10"
+horizontal_alignment = 1
+
+[node name="TextBoxPanel" type="Panel" parent="UI"]
+layout_mode = 0
+offset_left = -2.0
+offset_top = 137.0
+offset_right = 92.0
+offset_bottom = 161.0
+
+[node name="TextBox" type="RichTextLabel" parent="UI/TextBoxPanel"]
+layout_mode = 0
+offset_left = 3.0
+offset_top = 2.0
+offset_right = 91.0
+offset_bottom = 22.0
+theme_override_constants/line_separation = 3
+scroll_active = false
+
+[node name="ButtonGridContainer" type="GridContainer" parent="UI"]
+layout_mode = 0
+offset_left = 9.0
+offset_top = 73.0
+offset_right = 81.0
+offset_bottom = 135.0
+theme_override_constants/h_separation = 8
+theme_override_constants/v_separation = 3
+columns = 2
+
+[node name="SwordActionButton" parent="UI/ButtonGridContainer" instance=ExtResource("7_tkgxd")]
+layout_mode = 2
+
+[node name="HealActionButton" parent="UI/ButtonGridContainer" instance=ExtResource("8_5i1rn")]
+layout_mode = 2
+
+[node name="Fade" type="ColorRect" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0, 0, 0, 0)
+metadata/_edit_lock_ = true
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_0pi2f")
+}
+
+[connection signal="ap_changed" from="PlayerStats" to="UI/StatsPanel" method="_on_player_stats_ap_changed"]
+[connection signal="end_turn" from="PlayerStats" to="." method="_on_player_stats_end_turn"]
+[connection signal="hp_changed" from="PlayerStats" to="UI/StatsPanel" method="_on_player_stats_hp_changed"]
+[connection signal="mp_changed" from="PlayerStats" to="UI/StatsPanel" method="_on_player_stats_mp_changed"]
+[connection signal="pressed" from="UI/CenterContainer/ForwardButton" to="." method="_on_forward_button_pressed"]
+[connection signal="mouse_entered" from="UI/StatsPanel/StatsContainer/HPLabel" to="UI/StatsPanel" method="_on_hp_label_mouse_entered"]
+[connection signal="mouse_exited" from="UI/StatsPanel/StatsContainer/HPLabel" to="UI/StatsPanel" method="_on_hp_label_mouse_exited"]
+[connection signal="mouse_entered" from="UI/StatsPanel/StatsContainer/APLabel" to="UI/StatsPanel" method="_on_ap_label_mouse_entered"]
+[connection signal="mouse_exited" from="UI/StatsPanel/StatsContainer/APLabel" to="UI/StatsPanel" method="_on_ap_label_mouse_exited"]
+[connection signal="mouse_entered" from="UI/StatsPanel/StatsContainer/MPLabel" to="UI/StatsPanel" method="_on_mp_label_mouse_entered"]
+[connection signal="mouse_exited" from="UI/StatsPanel/StatsContainer/MPLabel" to="UI/StatsPanel" method="_on_mp_label_mouse_exited"]
+[connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_player_animation_finished"]
